@@ -22,7 +22,7 @@ class hdfsStorage {
                         return this.createFile(data)
                             .then(resolve)
                             .catch(reject);
-                    } else {
+                    } else if(error.message !== 'expected redirect') {
                         reject(error);
                     }
                 } else {
