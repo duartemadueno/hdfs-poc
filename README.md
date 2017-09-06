@@ -39,10 +39,6 @@ Enable webhdfs in `hadoop/wetc/hdfs-site.xml`. Add following entries to `configu
 </property>
 ```
 
-#### Logs
-
-To get t `tail -f logs/hadoop-madueno-secondarynamenode-madueno-ubuntu.log` 
-
 #### Needs investigation
 
 ##### Case 1:
