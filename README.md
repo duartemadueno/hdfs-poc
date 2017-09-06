@@ -52,7 +52,7 @@ While tying to run start-dfs.sh:
   - re run `bin/hdfs namenode -format`
 * problem:
   - couldn't replicate it
-  - need to try on restart
+  - need to try on computer restart
 
 ## OS
 
