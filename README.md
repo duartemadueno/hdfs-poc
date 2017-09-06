@@ -1,7 +1,8 @@
 # Hadoop's hdfs proof of concept using nodejs
 
+Here's an example on how to use hdfs in a NodeJS application
 
-repo that includes pocs 
+These are the following requirements/steps and challenges
 
 
 ## Execution
@@ -23,7 +24,9 @@ r3.0.0-alpha4
 * [binary](http://www.apache.org/dyn/closer.cgi/hadoop/common/hadoop-3.0.0-alpha4/hadoop-3.0.0-alpha4.tar.gz)
 * [setting a single node cluster](http://hadoop.apache.org/docs/r3.0.0-alpha4/hadoop-project-dist/hadoop-common/SingleCluster.html)
 
-Enable webhdfs in `hadoop/wetc/hdfs-site.xml`. Add following entries to `configuration` node:
+[Hadoop localhost overview](http://localhost:9870/dfshealth.html#tab-overview)
+
+Enable webhdfs in `hadoop/wetc/hdfs-site.xml`. Add following entries to `configuration` node.
 
 ``` xml
 <property>
@@ -36,6 +39,24 @@ Enable webhdfs in `hadoop/wetc/hdfs-site.xml`. Add following entries to `configu
 </property>
 ```
 
+#### Logs
+
+To get t `tail -f logs/hadoop-madueno-secondarynamenode-madueno-ubuntu.log` 
+
+#### Needs investigation
+
+##### Case 1:
+
+While tying to run start-dfs.sh:
+
+* errors:
+  - https://wiki.apache.org/hadoop/ConnectionRefused
+  - org.apache.hadoop.hdfs.server.datanode.DataNode: Problem connecting to server
+* solution:
+  - re run `bin/hdfs namenode -format`
+* problem:
+  - couldn't replicate it
+  - need to try on restart
 
 ## OS
 

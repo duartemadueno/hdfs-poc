@@ -1,6 +1,6 @@
 {
     "name": "hdfs-test",
-    "main": "./index.js",
+    "main": "./main/index.js",
     "dependencies": {
         "node-webhdfs": "^0.2.0",
         "promise": "^8.0.1"
