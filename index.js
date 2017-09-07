@@ -17,7 +17,7 @@ const readData = () => {
     storage.list().then(success => {
         console.log(success);
     }).catch(error => {
-        console.log(error);
+        console.log('index', error);
     });
 };
 

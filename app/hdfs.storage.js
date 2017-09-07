@@ -1,14 +1,13 @@
-const Promise = new require('promise');
-const config = new require('./config');
+const Promise = require('promise');
+const config = require('./config');
 /**
  * useful links: 
  *  1. http://hadoop.apache.org/docs/r3.0.0-alpha4/hadoop-project-dist/hadoop-common/SingleCluster.html
  *  2. https://www.npmjs.com/package/node-webhdfs
  * 
  */
-class hdfsStorage {
+module.exports = class hdfsStorage extends baseStorage {
     constructor() {
-        // for this to work, make sure directories are created. "Execution > step 4" from link 1
         this.hdfsFile = config.storage.hdfs.file;
         this.hdfs = new (require("node-webhdfs")).WebHDFSClient(config.storage.hdfs.connection);
     }
@@ -61,5 +60,3 @@ class hdfsStorage {
         });
     }
 }
-
-module.exports = hdfsStorage;
