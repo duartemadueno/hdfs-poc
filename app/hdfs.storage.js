@@ -6,7 +6,7 @@ const config = require('./config');
  *  2. https://www.npmjs.com/package/node-webhdfs
  * 
  */
-module.exports = class hdfsStorage extends baseStorage {
+module.exports = class hdfsStorage {
     constructor() {
         this.hdfsFile = config.storage.hdfs.file;
         this.hdfs = new (require("node-webhdfs")).WebHDFSClient(config.storage.hdfs.connection);
