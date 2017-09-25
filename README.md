@@ -39,7 +39,7 @@ Enable webhdfs in `hadoop/wetc/hdfs-site.xml`. Add following entries to `configu
 </property>
 ```
 
-#### Needs investigation
+#### Known issues
 
 ##### Case 1:
 
@@ -50,9 +50,8 @@ While tying to run start-dfs.sh:
   - org.apache.hadoop.hdfs.server.datanode.DataNode: Problem connecting to server
 * solution:
   - re run `bin/hdfs namenode -format`
-* problem:
-  - couldn't replicate it
-  - need to try on computer restart
+* cause:
+  - happens when computer is shutdown and hdfs isn't stop properly
 
 ## OS
 

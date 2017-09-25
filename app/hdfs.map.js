@@ -1,39 +1,37 @@
+
+var Logger = require('bunyan');
+var logger = new Logger({
+  name: 'hdfs map',
+  streams: [
+    {
+      path: 'logs/map.log',
+      level: 'debug'
+    }
+  ]
+});
 /**
 * Mapper chunk processing function.
 * Reads STDIN
 */
+let count = 0;
 function execute() {
     var chunk = process.stdin.read(); // Read a chunk
     if (chunk !== null) {
-        // Replace all newlines and tab chars with spaces
-        ['"', ':', '{', '}'].forEach(function (char) {
-            chunk = chunk.replace(new RegExp(char, 'g'), ' ');
-        });
-
         // Split it
-        var words = chunk.trim().split(' ');
-        var counts = {};
+        const objects = chunk.split('\n');
 
         // Count words
-        words.forEach(function (word) {
-            word = word.trim();
-
-            if (word.length) {
-                if (!counts[word]) {
-                    counts[word] = 0;
-                }
-
-                counts[word]++;
+        objects.forEach(object => {
+            try {
+                let json = JSON.parse(object.toString());
+                process.stdout.write('number1\t' + json.number1 + '\tnumber2\t ' + json.number2 + ' \n');
+            } catch(e) {
+                logger.error('error', e);
             }
-        });
-
-        // Emit results
-        Object.keys(counts).forEach(function (word) {
-            var count = counts[word];
-            process.stdout.write(word + '\t' + count + '\n');
         });
     }
 }
 
+logger.debug('--------------------------------------------------------------------------------------------------- init map');
 process.stdin.setEncoding('utf8');
 process.stdin.on('readable', execute); // Set STDIN processing handler
