@@ -1,6 +1,6 @@
 module.exports = {
     hdfs: {
-        file: '/users/madueno/random.data',
+        file: '/user/madueno/random.data',
         connection: {
             user: process.env.USER,
             namenode_host: 'localhost',

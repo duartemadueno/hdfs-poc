@@ -5,22 +5,21 @@ const storage = new hdfsStorage();
 
 const writeData = () => {
     let i = 0;
-    const createData = () => setTimeout(() => {
+    const bulkData = [];
+    while (i < 10000) {
         i++;
-        if (i < 10000) {
-            createData();
-        }
-        const newData = {
+        bulkData.push({
             number1: Math.random() * 100,
             number2: Math.random() * 100
-        };
-        storage.save(newData).then(success => {
-            console.log(success);
-        }).catch(error => {
-            console.log(error);
         });
-    }, 500);
-    createData();
+    }
+    console.log(bulkData);
+
+    storage.saveBulk(bulkData).then(success => {
+        console.log(success);
+    }).catch(error => {
+        console.log(error);
+    });
 };
 
 const readData = () => {
