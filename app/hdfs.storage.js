@@ -62,7 +62,7 @@ module.exports = class HdfsStorage {
             this.client.append(fileLocation, text, (error, success) => {
                 if (error instanceof Error) {
                     if (error.exception === 'FileNotFoundException') {
-                        isFileNotFound = true;z
+                        isFileNotFound = true;
                         return this.createFile(text)
                             .then(resolve)
                             .catch(reject);
