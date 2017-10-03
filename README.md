@@ -39,14 +39,6 @@ Enable webhdfs in `hadoop/wetc/hdfs-site.xml`. Add following entries to `configu
 </property>
 ```
 
-## Spark
-### Python 
-dependencies
-
-`pip install dateutil`
-
-`pip install numpy`
-
 #### Known issues
 
 ##### Case 1:
@@ -60,6 +52,14 @@ While tying to run start-dfs.sh:
   - re run `bin/hdfs namenode -format`
 * cause:
   - happens when computer is shutdown and hdfs isn't stop properly
+
+## Spark
+### Python 
+dependencies
+
+`pip install dateutil`
+
+`pip install numpy`
 
 ## OS
 
