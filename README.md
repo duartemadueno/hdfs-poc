@@ -39,6 +39,13 @@ Enable webhdfs in `hadoop/wetc/hdfs-site.xml`. Add following entries to `configu
 </property>
 ```
 
+## Spark
+### Python 
+dependencies
+
+`pip install dateutil`
+`pip install numpy`
+
 #### Known issues
 
 ##### Case 1:
