@@ -44,6 +44,7 @@ Enable webhdfs in `hadoop/wetc/hdfs-site.xml`. Add following entries to `configu
 dependencies
 
 `pip install dateutil`
+
 `pip install numpy`
 
 #### Known issues
