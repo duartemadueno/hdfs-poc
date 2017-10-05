@@ -9,7 +9,7 @@ const writeData = () => {
     let i = 0;
     const bulkData = [];
     let currentDate = moment();
-    while (i < 10000) {
+    while (i < 100000) {
         i++;
         bulkData.push({
             number1: Math.random() * 100,

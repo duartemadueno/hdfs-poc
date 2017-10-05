@@ -1,0 +1,1 @@
+/tmp/hadoop-madueno/mapred/local/1507223648306/hdfs.map.js

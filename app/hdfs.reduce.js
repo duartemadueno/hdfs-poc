@@ -14,40 +14,42 @@ var logger = new Logger({
 */
 function execute() {
     var chunk = process.stdin.read(); // Read a chunk
+    
     if (chunk) {
-        // Split it
-        var lines = chunk.trim().split('\n');
-        var totals = {};
+        process.stdout.write(chunk);
+        // // Split it
+        // var lines = chunk.trim().split('\n');
+        // var totals = {};
 
-        // Count words
-        lines.forEach(line => {
-            line = line.trim();
+        // // Count words
+        // lines.forEach(line => {
+        //     line = line.trim();
 
-            var atom = line.split('\t');
-            const number1Value = +atom[1];
-            const number2Value = +atom[3] || 0;
+        //     var atom = line.split('\t');
+        //     const number1Value = +atom[1];
+        //     const number2Value = +atom[3] || 0;
 
-            if (number1Value !== null) {
-                if (!totals.number1) {
-                    totals.number1 = 0;
-                }
+        //     if (number1Value !== null) {
+        //         if (!totals.number1) {
+        //             totals.number1 = 0;
+        //         }
 
-                totals.number1 += number1Value;
-            }
-            if (number2Value !== null) {
-                if (!totals.number2) {
-                    totals.number2 = 0;
-                }
+        //         totals.number1 += number1Value;
+        //     }
+        //     if (number2Value !== null) {
+        //         if (!totals.number2) {
+        //             totals.number2 = 0;
+        //         }
 
-                totals.number2 += number2Value;
-            }
-        });
+        //         totals.number2 += number2Value;
+        //     }
+        // });
 
-        // Emit results
-        Object.keys(totals).forEach(number => {
-            var total = totals[number];
-            process.stdout.write(number + ' total:\t' + total + '\n');
-        });
+        // // Emit results
+        // Object.keys(totals).forEach(number => {
+        //     var total = totals[number];
+        //     process.stdout.write(number + ' total:\t' + total + '\n');
+        // });
     }
 }
 
