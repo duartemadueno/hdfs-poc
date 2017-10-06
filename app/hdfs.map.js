@@ -20,7 +20,7 @@ const timeRangeIntervals = [5, 10, 15];
 const maxTimeRange = _.max(timeRangeIntervals);
 const availableLines = [];
 
-function execute() {
+const execute = () => {
     var chunk = process.stdin.read(); // Read a chunk
     if (chunk !== null) {
         // Split it
@@ -33,6 +33,9 @@ function execute() {
                     json['number1Calcs' + interval + 's'] = getCalculations(interval, 'number1');
                     json['number2Calcs' + interval + 's'] = getCalculations(interval, 'number2');
                 });
+                if (availableLines.length < 3) {
+                    logger.debug('json', json);
+                }
                 addToAvailableLines(json);
                 process.stdout.write(JSON.stringify(json) + '\n');
             } catch (e) {
@@ -42,39 +45,51 @@ function execute() {
                 } else {
                     lastUnsuccessfulLine = line;
                 }
-                logger.debug('availableLines', availableLines);
-                logger.debug('maxTimeRange', maxTimeRange);
             }
         }
 
-        // Count words
         objects.forEach(object => {
             processLine(object);
         });
     }
 }
 
-function getCalculations(interval, field) {
-    const start = interval < maxTimeRange ? maxTimeRange - interval - 1 : 0;
-    const objects = availableLines.slice(start, (maxTimeRange - 1));
+const getCalculations = (interval, field) => {
+    let start;
+    let end;
+    if (availableLines.length <= interval) {
+        start = 0;
+        end = _.max([availableLines.length - 1, 0]);
+    } else {
+        start = availableLines.length - interval - 1;
+        end = availableLines.length - 1;
+    }
+    const objects = availableLines.slice(start, end + 1);
+    if (availableLines.length < 3) {
+        logger.debug('start end', start, end);
+        logger.debug('availableLines', availableLines);
+        logger.debug('objects', objects);
+    }
     return {
-        max: _.maxBy(objects, object => object[field]),
-        min: _.minBy(objects, object => object[field]),
-        mean: _.meanBy(objects, object => object[field]),
+        max: _.max(_.map(objects, object => object[field])),
+        min: _.min(_.map(objects, object => object[field])),
+        mean: _.mean(_.map(objects, object => object[field])),
         median: getMedian(_.map(objects, object => object[field])),
         range: _.map(objects, object => object[field])
     }
 }
 
-function getMedian(values) {
-    if (values.length % 2 == 0) {
+const getMedian = values => {
+    if (values.length <= 1) {
+        return null;
+    } else if (values.length % 2 == 0) {
         return (values[values.length / 2] + values[values.length / 2 - 1]) / 2;
     } else {
         return values[Math.floor(values.length / 2)];
     }
 }
 
-function addToAvailableLines(line) {
+const addToAvailableLines = line => {
     if (availableLines.length >= maxTimeRange) {
         availableLines.shift();
     }
