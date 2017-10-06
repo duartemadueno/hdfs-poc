@@ -1,4 +1,3 @@
-
 const _ = require('lodash');
 var Logger = require('bunyan');
 var logger = new Logger({
@@ -29,12 +28,11 @@ const execute = () => {
         const processLine = line => {
             try {
                 let json = JSON.parse(line.toString());
-                _.each(timeRangeIntervals, interval => {
-                    json['number1Calcs' + interval + 's'] = getCalculations(interval, 'number1');
-                    json['number2Calcs' + interval + 's'] = getCalculations(interval, 'number2');
-                });
-                if (availableLines.length < 3) {
-                    logger.debug('json', json);
+                if (availableLines.length > 0) {
+                    _.each(timeRangeIntervals, interval => {
+                        json['number1Calcs' + interval + 's'] = getCalculations(interval, 'number1');
+                        json['number2Calcs' + interval + 's'] = getCalculations(interval, 'number2');
+                    });
                 }
                 addToAvailableLines(json);
                 process.stdout.write(JSON.stringify(json) + '\n');
@@ -65,22 +63,19 @@ const getCalculations = (interval, field) => {
         end = availableLines.length - 1;
     }
     const objects = availableLines.slice(start, end + 1);
-    if (availableLines.length < 3) {
-        logger.debug('start end', start, end);
-        logger.debug('availableLines', availableLines);
-        logger.debug('objects', objects);
-    }
+    const mapedField = _.map(objects, object => object[field]);
     return {
-        max: _.max(_.map(objects, object => object[field])),
-        min: _.min(_.map(objects, object => object[field])),
-        mean: _.mean(_.map(objects, object => object[field])),
-        median: getMedian(_.map(objects, object => object[field])),
-        range: _.map(objects, object => object[field])
+        max: _.max(mapedField),
+        min: _.min(mapedField),
+        mean: _.mean(mapedField),
+        median: getMedian(mapedField),
+        range: mapedField
     }
 }
 
 const getMedian = values => {
-    if (values.length <= 1) {
+    values.sort((a, b) => a - b);
+    if (values.length === 0) {
         return null;
     } else if (values.length % 2 == 0) {
         return (values[values.length / 2] + values[values.length / 2 - 1]) / 2;
